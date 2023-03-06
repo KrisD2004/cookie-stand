@@ -1,5 +1,5 @@
 //stats for cookies sold 
-let seattle = {
+/*let seattle = {
   min: 23, 
   max: 65,
   Avg: 6.5,
@@ -123,16 +123,6 @@ let Paris = {
         //return Math.ceil(this.Avg * this.getCustomers())
         
     }
-    
-    //caculate: function () {
-       // for(let i = 0; i < this.hoursofOperation.length; i++){
-            //console.log(this.getCookies())
-            //console.log(this.hoursofOperation[i])
-       // }
-   // }
-    
-
-//}
 Paris.getCustomers()
 Paris.getCookies()
 
@@ -149,7 +139,6 @@ let Lima = {
         return Math.ceil(Math.random() * (this.max - this.min) + this.min);
     },
     getCookies: function () {
-        //console.log(this.getCustomers())
         
         for (i = 0; i < this.hoursofOperation.length; i++) {
             let cookies = Math.ceil(this.Avg * this.getCustomers())
@@ -175,8 +164,109 @@ Lima.getCookies()
 let hoursArray = document.querySelector('.output')
 for (let i = 0; i < seattle.hoursofOperation.length; i++){
     let variable = document.createElement("li");
-    //variable.innerHTML = `${seattle.hoursofOperation[i]}: ${seattle.cookiesperhour[i]} cookies | ${tokyo.hoursofOperation[i]}: ${tokyo.cookiesperhour[i]} | } `
+    
     variable.innerHTML = `${seattle.hoursofOperation[i]}: ${seattle.cookiesperhour[i]} cookies | ${tokyo.hoursofOperation[i]}: ${tokyo.cookiesperhour[i]} cookies | ${Dubai.hoursofOperation[i]}: ${Dubai.cookiesperhour[i]} cookies | ${Paris.hoursofOperation[i]}: ${Paris.cookiesperhour[i]} cookies | ${Lima.hoursofOperation[i]}: ${Lima.cookiesperhour[i]} cookies`;
     hoursArray.append(variable);
 }
 
+*/
+
+
+let hours = ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm"] 
+
+function cookieStandLocation (location, min, max, avg) {
+    stand = {};
+    stand.location = location;
+    stand.min = min;
+    stand.max = max;
+    stand.avg = avg;
+    stand.cookiesperhour = [];
+    stand.hoursofOperation = hours;
+
+    stand.getCustomers = function() {
+
+        return Math.ceil(Math.random() * (this.max - this.min) + this.min);
+    };
+
+    stand.getCookies = function() {
+        //loop for getCookies
+        for (i = 0; i < this.hoursofOperation.length; i++) {
+            console.log(this.getCustomers())
+            let cookies = Math.ceil(this.avg * this.getCustomers())
+            console.log(this.hoursofOperation[i], cookies)
+            this.cookiesperhour.push(cookies)
+        }
+        return this.cookiesperhour;
+       // return Math.ceil(this.Avg * this.getCustomers()) 
+
+    }
+
+    stand.render =  function() {
+        
+        let trCook = document.createElement('tr');
+        let locateTD = document.createElement('td');
+        //trCook.append(locateTD);
+        locateTD.innerHTML = this.location;
+
+        trCook.append(locateTD);
+        let thCook = document.createElement('th')
+        thCook.innerHTML = ' '
+        document.getElementById('jstbl').append(thCook)
+
+        for (let i = 0; i < this.hoursofOperation.length; i ++) {
+            let thCook = document.createElement('th');
+            thCook.innerHTML = hours[i];
+            document.getElementById('jstbl').append(thCook)
+        }
+
+        for (let i = 0; i < this.hoursofOperation.length; i++) {
+            let tdCook = document.createElement('td');
+            tdCook.innerHTML = this.cookiesperhour[i];
+            document.getElementById('jstbl').append(trCook);
+           // trCook.append(locateTD);
+            trCook.append(tdCook);
+            
+        } 
+
+        //trCook.append(locateTD);
+        // document.getElementById('jstbl').append(trCook);
+        //trCook.append(tdCook);
+        
+        
+    } 
+    return stand;
+
+    
+}
+
+const seattle =  new cookieStandLocation('Seattle', 23, 65, 6.3);
+seattle.getCustomers();
+seattle.getCookies();
+seattle.render();
+
+const Tokyo = new cookieStandLocation('tokyo', 3, 24, 1.2);
+Tokyo.getCustomers();
+Tokyo.getCookies();
+Tokyo.render();
+
+const Dubai = new cookieStandLocation('Dubai', 3, 24, 3.7);
+Dubai.getCustomers();
+Dubai.getCookies();
+Dubai.render();
+
+const Paris = new cookieStandLocation('Paris', 20, 38, 2.3);
+Paris.getCustomers();
+Paris.getCookies();
+Paris.render();
+
+const Lima = new cookieStandLocation('Lima', 2, 16, 4.6);
+Lima.getCustomers();
+Lima.getCookies();
+Lima.render();
+
+
+
+
+
+
+//seattle.render();
