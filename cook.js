@@ -172,7 +172,7 @@ for (let i = 0; i < seattle.hoursofOperation.length; i++){
 */
 
 
-let hours = ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm"] 
+let hours = ["6am", "7am", "8am", "9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", ] 
 
 function cookieStandLocation (location, min, max, avg) {
     stand = {};
@@ -183,6 +183,7 @@ function cookieStandLocation (location, min, max, avg) {
     stand.cookiesperhour = [];
     stand.hoursofOperation = hours;
 
+
     stand.getCustomers = function() {
 
         return Math.ceil(Math.random() * (this.max - this.min) + this.min);
@@ -191,42 +192,79 @@ function cookieStandLocation (location, min, max, avg) {
     stand.getCookies = function() {
         //loop for getCookies
         for (i = 0; i < this.hoursofOperation.length; i++) {
-            console.log(this.getCustomers())
+            //console.log(this.getCustomers())
             let cookies = Math.ceil(this.avg * this.getCustomers())
-            console.log(this.hoursofOperation[i], cookies)
+            //console.log(this.hoursofOperation[i], cookies)
             this.cookiesperhour.push(cookies)
         }
+        
         return this.cookiesperhour;
+
        // return Math.ceil(this.Avg * this.getCustomers()) 
 
     }
-
+    //total function
+    stand.total = function total() {
+        let total=0
+        for (let i = 0; i < this.cookiesperhour.length; i++) {
+            total += this.cookiesperhour[i];
+        }
+        return total
+    }
+    
     stand.render =  function() {
+        
         
         let trCook = document.createElement('tr');
         let locateTD = document.createElement('td');
-        //trCook.append(locateTD);
+        trCook.append(locateTD);
         locateTD.innerHTML = this.location;
-
+        
+        let tr = document.createElement("tr");
+        tr.innerHTML = ' '
+        document.getElementById('jstbl').append(tr);
+        
         trCook.append(locateTD);
         let thCook = document.createElement('th')
         thCook.innerHTML = ' '
-        document.getElementById('jstbl').append(thCook)
-
-        for (let i = 0; i < this.hoursofOperation.length; i ++) {
-            let thCook = document.createElement('th');
-            thCook.innerHTML = hours[i];
-            document.getElementById('jstbl').append(thCook)
-        }
-
-        for (let i = 0; i < this.hoursofOperation.length; i++) {
-            let tdCook = document.createElement('td');
+        
+        //document.getElementById('jstbl').append(thCook)
+        
+        // for (let i = 0; i < this.hoursofOperation.length; i ++) {
+            //     let thCook = document.createElement('th');
+            //     thCook.innerHTML = hours[i];
+            //     document.getElementById('jstbl').append(thCook)
+            // }
+            // document.getElementById('jstbl').append('dailytotal');
+            
+            for (let i = 0; i < this.hoursofOperation.length; i++) {
+                let tdCook = document.createElement('td');
             tdCook.innerHTML = this.cookiesperhour[i];
             document.getElementById('jstbl').append(trCook);
            // trCook.append(locateTD);
-            trCook.append(tdCook);
-            
+           trCook.append(tdCook);
+           
         } 
+        
+        
+        //total += this.cookiesperhour[i];
+        //return total
+        
+        //let dailytotal = document.createElement('th');
+        
+        let temptd = document.createElement('td');
+        let dailytotal = document.createElement('th');
+        dailytotal.innerHTML = 'dailytotal'
+        temptd.innerHTML=this.total()
+        //let dailytotal = document.createElement('th');
+        //trCook.append(dailytotal);
+        trCook.append(temptd);
+        //document.getElementById('jstbl').append(temptd);
+        
+
+
+        
+
 
         //trCook.append(locateTD);
         // document.getElementById('jstbl').append(trCook);
@@ -234,35 +272,60 @@ function cookieStandLocation (location, min, max, avg) {
         
         
     } 
-    return stand;
-
-    
+    return stand;    
 }
+let table = document.getElementById('jstbl');
+let tablerow = document.createElement('tr');
+let tablehead = document.createElement('th');
+table.append(tablerow);
+tablerow.append(tablehead);
+
+for (let i = 0; i < hours.length; i ++) {
+    let thCook = document.createElement('th');
+    thCook.innerHTML = hours[i];
+    tablerow.append(thCook)
+}
+
+let totalhead = document.createElement('th');
+totalhead.innerHTML = 'dailytotal';
+tablerow.append(totalhead);
+
+
 
 const seattle =  new cookieStandLocation('Seattle', 23, 65, 6.3);
 seattle.getCustomers();
 seattle.getCookies();
 seattle.render();
+seattle.total();
+
 
 const Tokyo = new cookieStandLocation('tokyo', 3, 24, 1.2);
 Tokyo.getCustomers();
 Tokyo.getCookies();
 Tokyo.render();
+Tokyo.total();
+
 
 const Dubai = new cookieStandLocation('Dubai', 3, 24, 3.7);
 Dubai.getCustomers();
 Dubai.getCookies();
 Dubai.render();
+Dubai.total();
 
 const Paris = new cookieStandLocation('Paris', 20, 38, 2.3);
 Paris.getCustomers();
 Paris.getCookies();
 Paris.render();
+Paris.total();
+
 
 const Lima = new cookieStandLocation('Lima', 2, 16, 4.6);
 Lima.getCustomers();
 Lima.getCookies();
+//Lima.total();
 Lima.render();
+Lima.total();
+
 
 
 
