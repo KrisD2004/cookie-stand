@@ -328,7 +328,17 @@ Lima.total();
 
 
 
-
+let form = document.querySelector("form");
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    let name = form.querySelector("#name")
+    let userval = name.value;
+    let newstore = new cookieStandLocation(userval, 3, 13, 3.6);
+    newstore.getCustomers();
+    newstore.getCookies();
+    newstore.render();
+    newstore.total();
+})
 
 
 
