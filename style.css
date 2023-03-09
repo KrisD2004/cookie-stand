@@ -1,0 +1,61 @@
+body {
+    background-color: burlywood;
+    
+}
+
+nav {
+    display: flex;
+    margin: 0;
+    width: 100%;
+    background-color:rgba(243, 233, 217, 0.852) ;
+    padding: 0;
+    border-style: solid;
+    border-radius: 15px;
+    
+    
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    column-gap: 50px;
+    height: 40pt;
+}
+
+h1 {
+    text-align: center;
+
+}
+
+#a {
+    display: flex;
+    justify-content: center;
+}
+
+#b {
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+#c {
+    display: flex;
+}
+
+
+#ww {
+    display: flex;
+    padding-left: 15px;
+}
+
+address {
+    font-size: larger;
+    border-style: double;
+    border-radius: 10px;
+}
+
+article {
+    border-style: solid;
+    border-radius: 15px;
+}
+
