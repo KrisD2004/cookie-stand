@@ -50,7 +50,7 @@ h1 {
 
 address {
     font-size: larger;
-    border-style: double;
+    border-style: solid;
     border-radius: 10px;
 }
 
